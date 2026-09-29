@@ -35,8 +35,51 @@ O site é bilíngue: português (`/pt`) e inglês (`/en`).
 
 ## Setup local
 
-_Em construção. Será preenchido junto com a fundação técnica do projeto._
+### Pré-requisitos
+
+- PHP 8.3+ com as extensões `intl`, `gd`, `pdo_mysql`, `mbstring`, `xml`, `curl` e `zip`
+- Composer 2
+- Node.js 20.19+ ou 22.12+
+- Docker com Docker Compose (o banco roda em container)
+
+### Instalação
+
+```bash
+composer install
+npm install
+
+cp .env.example .env
+# Edite o .env e defina DB_PASSWORD (e, se quiser, DB_DATABASE / DB_USERNAME).
+# O Docker Compose lê essas mesmas variáveis para criar o banco.
+php artisan key:generate
+
+docker compose up -d
+php artisan migrate
+php artisan make:filament-user
+```
+
+### Rodando
+
+Em dois terminais:
+
+```bash
+php artisan serve
+npm run dev
+```
+
+- Site: <http://localhost:8000> (redireciona para `/pt` ou `/en` conforme o idioma do navegador)
+- Painel: <http://localhost:8000/admin>
+
+### Testes e estilo
+
+```bash
+php artisan test
+vendor/bin/pint --test
+```
+
+Os testes usam SQLite em memória e não dependem do container do banco.
 
 ## Status
 
-Em planejamento e fundação técnica.
+Fundação técnica concluída: Laravel, painel administrativo, banco local e rotas
+bilíngues. Próximo passo: modelo de conteúdo (projetos e posts) no painel.
