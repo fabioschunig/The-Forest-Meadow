@@ -28,6 +28,8 @@ de verdade do projeto. Este arquivo trata só de como trabalhar no código.
   functions, colunas `JSON` com índice funcional, etc.).
 - Deploy é via FTP, sem SSH: nada que dependa de rodar comandos no servidor
   (filas com worker, cron, `artisan` remoto) sem uma alternativa definida.
+- Uploads sempre no disco `uploads` (`public/uploads`), nunca `storage:link`.
+  O deploy por FTP não pode sobrescrever essa pasta.
 - Nunca ler nem editar `.env`. Novas variáveis vão para o `.env.example`, e o
   usuário ajusta o `.env`.
 - Sem commit ou push sem pedido explícito.
