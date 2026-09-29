@@ -6,12 +6,13 @@ de verdade do projeto. Este arquivo trata só de como trabalhar no código.
 ## Idioma
 - Código, nomes, comentários e textos técnicos: inglês.
 - Commits: português, com prefixo convencional (`feat:`, `fix:`, `docs:`, `chore:`...).
-- Textos visíveis no site: sempre nos dois idiomas (`lang/pt` e `lang/en`), nunca
+- Textos visíveis no site: sempre nos dois idiomas (`lang/pt_BR` e `lang/en`), nunca
   texto fixo em um idioma só nas views.
 
 ## Convenções
 - Seguir os padrões do Laravel e do Filament antes de criar abstrações próprias.
-- Rotas públicas ficam no grupo com prefixo `{locale}` (`pt|en`).
+- Rotas públicas ficam no grupo com prefixo `{locale}` (`pt|en`). O prefixo da URL
+  é mapeado para o locale interno em `config/app.php` (`pt` → `pt_BR`).
 - Campos de conteúdo traduzíveis usam `spatie/laravel-translatable`.
 - O front é autoral: nada de temas ou kits de UI prontos no site público.
   O Filament é usado só no `/admin`.
