@@ -1,0 +1,26 @@
+/* Engraved stone plaques for project type and status. */
+.plaques { display: flex; flex-wrap: wrap; gap: .5rem; }
+.plaque {
+    position: relative; display: inline-flex; align-items: center; gap: .5rem;
+    font: 500 .68rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+    color: #18211B; text-shadow: 0 1px 0 rgba(255, 255, 255, .28); text-decoration: none;
+    background: linear-gradient(180deg, #A3ABA5, #858E87 60%, #7A837C);
+    padding: .5rem .7rem .45rem; border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -2px 0 rgba(0, 0, 0, .28), 0 2px 0 rgba(0, 0, 0, .45);
+    overflow: hidden;
+}
+a.plaque:hover { color: #18211B; background: linear-gradient(180deg, #B3BBB5, #939C95 60%, #88918A); }
+.plaque.has-moss::after {
+    content: ""; position: absolute; left: -4px; top: -4px; width: 16px; height: 12px; pointer-events: none;
+    background: radial-gradient(circle at 30% 40%, rgba(90, 127, 42, .95) 0 35%, rgba(55, 91, 25, .8) 50%, transparent 72%);
+}
+.plaque .gem {
+    width: .5rem; height: .5rem; transform: rotate(45deg); flex: none;
+    background: var(--gem, var(--stone-dark));
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .35), 0 0 6px color-mix(in oklab, var(--gem, transparent) 70%, transparent);
+}
+.plaque.status-idea { --gem: var(--stone-dark); }
+.plaque.status-prototype { --gem: var(--ray); }
+.plaque.status-in_development { --gem: var(--sun); }
+.plaque.status-released { --gem: var(--meadow); }
+.plaque.status-paused { --gem: #2E3530; }

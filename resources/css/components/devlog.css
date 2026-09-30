@@ -1,0 +1,12 @@
+/* The devlog is a root growing down the page; resources/js/decor.js draws it
+   from the entries' positions. Without script it falls back to a plain line. */
+.devlog { position: relative; display: grid; gap: 1.8rem; padding-left: 3.4rem; padding-bottom: 1.5rem; }
+.devlog::before { content: ""; position: absolute; left: 20px; top: 0; bottom: 0; width: 3px; border-radius: 3px; background: var(--bark); }
+.devlog.has-root::before { display: none; }
+.devlog svg.root { position: absolute; left: 0; top: 0; width: 3.4rem; height: 100%; overflow: visible; pointer-events: none; }
+.devlog .entry { position: relative; display: grid; gap: .4rem; }
+.devlog .when { display: flex; gap: .7rem; flex-wrap: wrap; align-items: center; font: .78rem/1.3 var(--mono); color: var(--stone); }
+.devlog .is-newest .when .fresh { color: var(--sun); }
+.devlog h3 a { color: var(--light); text-decoration: none; }
+.devlog h3 a:hover { color: var(--sun); }
+.devlog p { font-size: .98rem; max-width: 62ch; }

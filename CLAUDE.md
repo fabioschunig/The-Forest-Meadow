@@ -11,11 +11,35 @@ de verdade do projeto. Este arquivo trata só de como trabalhar no código.
 
 ## Convenções
 - Seguir os padrões do Laravel e do Filament antes de criar abstrações próprias.
-- Rotas públicas ficam no grupo com prefixo `{locale}` (`pt|en`). O prefixo da URL
-  é mapeado para o locale interno em `config/app.php` (`pt` → `pt_BR`).
 - Campos de conteúdo traduzíveis usam `spatie/laravel-translatable`.
-- O front é autoral: nada de temas ou kits de UI prontos no site público.
+- O front é autoral: nada de temas, kits de UI ou Tailwind no site público.
   O Filament é usado só no `/admin`.
+
+### Rotas e idiomas
+- `routes/web.php` registra um grupo de rotas por idioma, em loop sobre
+  `config('app.locales')` (prefixo da URL → locale interno: `pt` → `pt_BR`).
+- Segmentos de URL vêm de `lang/*/routes.php`; nomes de rota levam o prefixo
+  (`pt.projects.show`). Mudar um segmento quebra links já publicados.
+- Nunca escrever URL fixa nas views: usar `localized_route()` e, para o seletor de
+  idioma, `switch_locale_url()` (`app/helpers.php`).
+
+### Conteúdo público
+- Consultas do site sempre com o escopo `published()`; rascunho e agendado dão 404.
+- Datas pelo componente `<x-date>` (converte de UTC para `app.display_timezone`).
+- Arquivos do disco `uploads` pelo helper `upload_url()`.
+- Novo tipo de bloco: bloco no `App\Filament\Forms\ContentBuilder` + componente
+  `resources/views/components/blocks/{tipo}.blade.php`. Tipo sem componente é ignorado.
+- HTML do editor rico só passa para a view por `RichContentRenderer::toHtml()`, que
+  sanitiza. Nunca `{!! !!}` direto em conteúdo vindo do painel.
+
+### Front-end
+- Cores e medidas como tokens em `resources/css/tokens.css`; um arquivo por
+  componente em `resources/css/components/`.
+- JS em módulos ES em `resources/js/`; cada módulo só age se o elemento dele existir.
+- Fontes locais pelo provider `local()` do `laravel-vite-plugin`. Não trocar a
+  Fraunces por `google()`: esse provider só pede os eixos `ital`/`wght` e perde
+  `SOFT`, `WONK` e `opsz`.
+- Respeitar `prefers-reduced-motion` em toda animação.
 
 ## Verificação (antes de dizer "pronto")
 - `php artisan test`

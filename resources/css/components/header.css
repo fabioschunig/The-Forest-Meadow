@@ -1,0 +1,30 @@
+.site-header {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+    gap: .8rem 1.5rem; padding: 1rem var(--gutter);
+    border-bottom: 1px solid color-mix(in oklab, var(--moss) 60%, transparent);
+}
+/* On the home page the header floats over the scene. */
+.site-header.is-overlay { position: absolute; inset: 0 0 auto; z-index: 5; border-bottom: 0; background: linear-gradient(rgba(10, 31, 22, .75), transparent); }
+
+.brand {
+    font-family: var(--display); font-size: 1.35rem; color: var(--light); text-decoration: none;
+    font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 48;
+}
+.brand:hover { color: var(--sun); }
+
+.site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.4rem; }
+.site-nav a { color: var(--text); text-decoration: none; font-size: .98rem; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--sun); }
+.site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: .35em; }
+
+.lang { display: inline-flex; border: 1px solid var(--moss); border-radius: 999px; padding: 3px; font: 500 .78rem/1 var(--mono); }
+.lang a, .lang span { padding: .45rem .7rem; border-radius: 999px; text-decoration: none; }
+.lang a { color: var(--stone); }
+.lang a:hover { color: var(--sun); }
+.lang span { background: var(--moss); color: var(--light); }
+
+/* On narrow screens the nav wraps; floating it over the scene would cover the title. */
+@media (max-width: 640px) {
+    .site-header.is-overlay { position: relative; background: var(--shade); border-bottom: 1px solid color-mix(in oklab, var(--moss) 60%, transparent); }
+    .hero-copy { top: clamp(20px, 5vw, 40px); }
+}

@@ -28,6 +28,11 @@ trait Publishable
         };
     }
 
+    public function isPublished(): bool
+    {
+        return $this->publicationState() === PublicationState::Published;
+    }
+
     public function publicationState(): PublicationState
     {
         return match (true) {

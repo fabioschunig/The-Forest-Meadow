@@ -1,0 +1,58 @@
+/* Page wrapper for listings; articles use .flow below. */
+.page {
+    max-width: calc(var(--page) + 2 * var(--gutter));
+    margin: 0 auto;
+    padding-inline: var(--gutter);
+    padding-block: clamp(40px, 6vw, 72px) clamp(56px, 8vw, 96px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(48px, 7vw, 88px);
+}
+/* Grid items default to min-width:auto and would grow to fit wide content. */
+.page > * { min-width: 0; }
+
+.page-head { display: grid; gap: .9rem; max-width: 46rem; }
+.page-head p { font-size: var(--step-1); line-height: 1.55; }
+
+.section { display: grid; gap: clamp(20px, 3vw, 32px); }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: .8rem 1.5rem; }
+.section-head h2 { font-size: var(--step-2); }
+
+.empty { color: var(--stone); font-style: italic; }
+
+/* Article flow: text keeps a reading measure while blocks can go wide or full-bleed,
+   without 100vw tricks that cause horizontal scroll. */
+.flow {
+    display: grid;
+    grid-template-columns:
+        [full-start] minmax(var(--gutter), 1fr)
+        [wide-start] minmax(0, calc((var(--wide) - var(--content)) / 2))
+        [content-start] min(var(--content), 100% - 2 * var(--gutter)) [content-end]
+        minmax(0, calc((var(--wide) - var(--content)) / 2)) [wide-end]
+        minmax(var(--gutter), 1fr) [full-end];
+    row-gap: 1.6rem;
+    padding-block: clamp(32px, 5vw, 56px) clamp(56px, 8vw, 96px);
+}
+.flow > * { grid-column: content; min-width: 0; }
+.flow > .is-wide { grid-column: wide; }
+.flow > .is-full { grid-column: full; }
+
+.article-head { display: grid; gap: 1rem; padding-bottom: .6rem; }
+.article-head .summary { font-size: var(--step-1); line-height: 1.55; }
+.article-head .when { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; }
+.article-cover { border-radius: 14px; overflow: hidden; border: 1px solid var(--moss); }
+.article-cover img { width: 100%; height: auto; }
+
+.notice {
+    display: flex; gap: .7rem; align-items: center;
+    font: .85rem/1.5 var(--mono); color: var(--ray);
+    border: 1px dashed color-mix(in oklab, var(--ray) 50%, transparent);
+    border-radius: 10px; padding: .7rem .9rem;
+}
+
+.facts { display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; }
+.facts div { display: grid; gap: .15rem; }
+.facts dt { font: 500 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--stone); }
+.facts dd { margin: 0; color: var(--light); }
+
+.error-page { min-height: 50vh; align-content: center; justify-items: start; }

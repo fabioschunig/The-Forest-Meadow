@@ -8,21 +8,46 @@ e os avanços de cada trabalho.
 
 ## Seções do site
 
-- **Blog**: textos sobre o processo, estudos e avanços, com imagens, links e mídia.
-- **Projetos**: portfólio de jogos, desenhos e textos. Cada projeto tem seu próprio
-  diário de bordo, formado pelos posts ligados a ele, que registram sua evolução
-  do início ao fim.
-- **Sobre / Contato**: quem sou, como falar comigo e links para as redes sociais.
+- **Início**: a clareira animada, o projeto em destaque, as últimas anotações e os
+  projetos.
+- **Projetos**: portfólio de jogos, desenhos e textos. Cada projeto tem suas próprias
+  anotações, formadas pelas anotações ligadas a ele, que registram sua evolução do
+  início ao fim.
+- **Anotações**: todas as anotações — processo, estudos e avanços, com imagens, links e mídia.
+- **Sobre**: quem sou, como falar comigo e links para as redes sociais.
 
-O site é bilíngue: português (`/pt`) e inglês (`/en`).
+O site é bilíngue, com os endereços traduzidos:
+
+| Página | Português | Inglês |
+|---|---|---|
+| Início | `/pt` | `/en` |
+| Projetos | `/pt/projetos/{slug}` | `/en/projects/{slug}` |
+| Anotações | `/pt/anotacoes/{slug}` | `/en/notes/{slug}` |
+| Sobre | `/pt/sobre` | `/en/about` |
+
+A raiz (`/`) leva ao idioma do navegador. Conteúdo sem versão em inglês aparece em
+português no `/en`, com um aviso.
 
 ## Domínio
 
 - **Projeto**: um trabalho artístico. Tem um tipo (jogo, desenho ou escrita) e um
-  status (ideia, protótipo, em desenvolvimento, lançado ou pausado).
-- **Post**: uma publicação do blog. Pode estar ligado a um projeto e, nesse caso,
-  passa a fazer parte do diário de bordo dele. O conteúdo é montado em blocos
+  status (ideia, protótipo, em desenvolvimento, lançado ou pausado). Um projeto
+  marcado como destaque aparece no pedestal da página inicial.
+- **Anotação** (`Note`): pode estar ligada a um projeto e, nesse caso, passa a fazer
+  parte das anotações dele. O conteúdo é montado em blocos
   (texto, imagem, galeria, vídeo, jogo embutido, citação).
+- **Publicação**: definida pela data. Sem data é rascunho, com data futura é
+  agendado, com data passada é publicado. Só o que está publicado aparece no site.
+
+## Identidade visual
+
+Uma clareira ensolarada ao lado de uma floresta viva, com ruínas antigas que a mata
+está retomando. Tema escuro, com a luz como linguagem da interface: o que importa
+está iluminado. Referências: uma foto de clareira com raios de sol e o Sacred Forest
+Meadow de *Zelda: Ocarina of Time* (só como atmosfera).
+
+As árvores, o pedestal e as ruínas da abertura ainda são formas feitas em código,
+que serão substituídas por desenhos próprios.
 
 ## Stack
 
@@ -30,6 +55,8 @@ O site é bilíngue: português (`/pt`) e inglês (`/en`).
 - [Filament](https://filamentphp.com), como painel administrativo para escrever e
   gerenciar o conteúdo
 - Front-end autoral: Blade, CSS e JS próprios, compilados com Vite
+- Fontes servidas pelo próprio site: Fraunces, Literata (licença OFL, em
+  `resources/fonts`) e IBM Plex Mono
 - MySQL 5.7 (Percona), rodando em Docker no ambiente local
 - Hospedagem compartilhada, com deploy via FTP
 
@@ -58,6 +85,8 @@ php artisan migrate
 php artisan make:filament-user
 ```
 
+E-mail e redes sociais do rodapé e da página "Sobre" ficam em `config/site.php`.
+
 ### Rodando
 
 Em dois terminais:
@@ -81,6 +110,6 @@ Os testes usam SQLite em memória e não dependem do container do banco.
 
 ## Status
 
-Fundação técnica e modelo de conteúdo concluídos: projetos e posts são escritos
-no painel, em blocos e nos dois idiomas. Próximo passo: identidade visual e site
-público.
+Fundação técnica, modelo de conteúdo e site público concluídos: projetos e anotações
+são escritos no painel e publicados no site, com a identidade visual aplicada, nos
+dois idiomas. Próximos passos: SEO, RSS, sitemap e contato; depois o deploy via FTP.

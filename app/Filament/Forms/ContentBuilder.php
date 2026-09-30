@@ -12,7 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Support\Icons\Heroicon;
 
 /**
- * Block-based content shared by projects and posts. Each block type gets its
+ * Block-based content shared by projects and notes. Each block type gets its
  * own hand-made layout on the public site.
  */
 class ContentBuilder

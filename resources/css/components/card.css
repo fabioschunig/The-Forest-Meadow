@@ -1,0 +1,34 @@
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.card {
+    position: relative; overflow: hidden; border-radius: 14px; background: var(--canopy);
+    border: 1px solid var(--moss); display: grid; grid-template-rows: auto 1fr; text-decoration: none; color: inherit;
+    transition: border-color .5s, transform .5s cubic-bezier(.2, .7, .2, 1);
+}
+/* A ray of light crosses the card in focus. */
+.card::after {
+    content: ""; position: absolute; inset: -30% -40%; pointer-events: none;
+    background: linear-gradient(118deg, transparent 32%, rgba(231, 250, 192, .10) 44%, rgba(147, 194, 164, .16) 50%, rgba(231, 250, 192, .06) 56%, transparent 66%);
+    opacity: 0; transform: translateX(-12%); transition: opacity .7s, transform 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+.card:hover, .card:focus-visible { color: inherit; border-color: color-mix(in oklab, var(--ray) 55%, var(--moss)); transform: translateY(-3px); }
+.card:hover::after, .card:focus-visible::after { opacity: 1; transform: translateX(0); }
+.card:hover h3, .card:focus-visible h3 { color: var(--sun); }
+.card h3 { transition: color .5s; }
+.card p { font-size: .95rem; color: var(--text); }
+.card-body { padding: 1.1rem 1.2rem 1.3rem; display: grid; gap: .75rem; align-content: start; }
+
+.cover { aspect-ratio: 16 / 9; max-width: 100%; position: relative; background: var(--moss); }
+.cover img { width: 100%; height: 100%; object-fit: cover; }
+/* Projects without a cover get a meadow gradient instead of an empty box. */
+.cover.is-placeholder {
+    background:
+        radial-gradient(ellipse 60% 55% at 50% 95%, #CFE56B 0%, #ADC938 22%, #517414 55%, transparent 80%),
+        linear-gradient(180deg, #0E2E24 0%, #18412F 55%, #173407 100%);
+}
+
+.entry-list { display: grid; gap: 1.6rem; }
+.entry-item { display: grid; gap: .4rem; padding-bottom: 1.6rem; border-bottom: 1px solid color-mix(in oklab, var(--moss) 60%, transparent); }
+.entry-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.entry-item h3 a { color: var(--light); text-decoration: none; }
+.entry-item h3 a:hover { color: var(--sun); }
+.entry-item .when { display: flex; flex-wrap: wrap; gap: .5rem .9rem; align-items: center; }

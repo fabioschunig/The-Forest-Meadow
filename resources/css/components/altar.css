@@ -1,0 +1,26 @@
+/* Featured project resting on the clearing's stone pedestal, under a ray. */
+.altar { position: relative; display: grid; justify-items: center; padding-top: clamp(40px, 6vw, 72px); isolation: isolate; }
+.altar-beam {
+    position: absolute; inset: 0 0 18% 0; z-index: -1; pointer-events: none;
+    background: linear-gradient(152deg, rgba(231, 250, 192, 0) 18%, rgba(210, 240, 200, .13) 38%, rgba(147, 194, 164, .16) 52%, rgba(147, 194, 164, 0) 70%);
+    clip-path: polygon(8% 0, 30% 0, 78% 100%, 30% 100%);
+    animation: beam 7s ease-in-out infinite alternate;
+}
+@keyframes beam { from { opacity: .65; } to { opacity: 1; } }
+.altar .card {
+    width: min(100%, 560px); z-index: 1;
+    box-shadow: 0 30px 60px -30px rgba(207, 229, 107, .25);
+    border-color: color-mix(in oklab, var(--ray) 45%, var(--moss));
+}
+.altar .cover { aspect-ratio: 21 / 9; }
+.altar-steps { display: grid; justify-items: center; width: 100%; margin-top: -6px; }
+.step {
+    position: relative; height: 18px; border-radius: 2px;
+    background: linear-gradient(180deg, #A9B1AB 0 4px, #7C857E 4px, #5A625C);
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .25), 0 6px 14px rgba(0, 0, 0, .4);
+}
+.step:nth-child(1) { width: min(104%, 600px); }
+.step:nth-child(2) { width: min(112%, 660px); height: 22px; }
+.step::before { content: ""; position: absolute; inset: 4px 0 0; background: repeating-linear-gradient(90deg, transparent 0 58px, rgba(0, 0, 0, .28) 58px 60px); border-radius: 2px; }
+.step::after { content: ""; position: absolute; left: 12%; top: -3px; width: 46px; height: 9px; border-radius: 50%; background: radial-gradient(ellipse, rgba(90, 127, 42, .95), rgba(55, 91, 25, .6) 60%, transparent 75%); }
+.step:nth-child(2)::after { left: auto; right: 18%; width: 64px; }

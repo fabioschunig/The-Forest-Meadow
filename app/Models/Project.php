@@ -43,9 +43,9 @@ class Project extends Model
         ];
     }
 
-    /** @return HasMany<Post, $this> */
-    public function posts(): HasMany
+    /** @return HasMany<Note, $this> */
+    public function notes(): HasMany
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Note::class);
     }
 }

@@ -5,19 +5,16 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
 use Symfony\Component\HttpFoundation\Response;
 
 class SetLocale
 {
-    public function handle(Request $request, Closure $next): Response
+    /**
+     * Applies the locale of the route group's URL prefix (e.g. SetLocale:pt).
+     */
+    public function handle(Request $request, Closure $next, string $prefix): Response
     {
-        $prefix = $request->route('locale');
-
         App::setLocale(config('app.locales')[$prefix]);
-
-        // Lets route() build localized URLs without passing the locale every time.
-        URL::defaults(['locale' => $prefix]);
 
         return $next($request);
     }

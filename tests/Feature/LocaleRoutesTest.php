@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class LocaleRoutesTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_root_without_language_preference_redirects_to_default_locale(): void
     {
         // Explicitly empty: the test client sends "en-us" by default.
@@ -37,7 +40,7 @@ class LocaleRoutesTest extends TestCase
         $this->get('/pt')
             ->assertOk()
             ->assertSee('<html lang="pt-BR">', false)
-            ->assertSee('Em construção.');
+            ->assertSee('Jogos, desenhos e textos crescendo à luz de uma clareira.');
     }
 
     public function test_english_home_is_served_in_english(): void
@@ -45,7 +48,7 @@ class LocaleRoutesTest extends TestCase
         $this->get('/en')
             ->assertOk()
             ->assertSee('<html lang="en">', false)
-            ->assertSee('Under construction.');
+            ->assertSee('Games, drawings and writing growing in the light of a clearing.');
     }
 
     public function test_unsupported_locale_returns_not_found(): void

@@ -3,7 +3,7 @@
 return [
     'resources' => [
         'project' => ['singular' => 'projeto', 'plural' => 'projetos'],
-        'post' => ['singular' => 'post', 'plural' => 'posts'],
+        'note' => ['singular' => 'anotação', 'plural' => 'anotações'],
     ],
 
     'sections' => [
