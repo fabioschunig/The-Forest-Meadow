@@ -81,5 +81,6 @@ Os testes usam SQLite em memória e não dependem do container do banco.
 
 ## Status
 
-Fundação técnica concluída: Laravel, painel administrativo, banco local e rotas
-bilíngues. Próximo passo: modelo de conteúdo (projetos e posts) no painel.
+Fundação técnica e modelo de conteúdo concluídos: projetos e posts são escritos
+no painel, em blocos e nos dois idiomas. Próximo passo: identidade visual e site
+público.
