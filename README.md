@@ -115,8 +115,58 @@ vendor/bin/pint --test
 
 Os testes usam SQLite em memória e não dependem do container do banco.
 
+## Deploy
+
+Hospedagem compartilhada com cPanel, sem SSH. O código fica fora do `public_html`
+e o domínio aponta para a pasta `public`:
+
+```
+/home/<usuario>/the-forest-meadow/          código
+/home/<usuario>/the-forest-meadow/public    raiz do domínio
+/home/<usuario>/the-forest-meadow/.env      só no servidor, criado à mão
+/home/<usuario>/the-forest-meadow/public/uploads   imagens enviadas pelo painel
+```
+
+### Preparação (uma vez)
+
+1. **cPanel > Selecionar versão do PHP**: 8.3 ou superior, com as extensões `intl`,
+   `gd`, `pdo_mysql`, `mbstring`, `fileinfo`, `zip` e `openssl`.
+2. **cPanel > Domínios**: raiz do documento em `the-forest-meadow/public` e
+   "Forçar redirecionamento HTTPS" ativado.
+3. **cPanel > Bancos de dados MySQL**: criar o banco e o usuário.
+4. **cPanel > MySQL remoto**: liberar o seu IP, para rodar as migrations daqui.
+5. Gerar a chave da aplicação com `php artisan key:generate --show` (só mostra a
+   chave, não grava nada).
+6. Criar o **`.env` do servidor** pelo gerenciador de arquivos, a partir do
+   `.env.example`, com:
+   - `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL=https://<domínio>`
+   - `APP_KEY=` a chave gerada
+   - `DB_HOST=localhost` e as credenciais do banco
+   - `SESSION_SECURE_COOKIE=true`, `LOG_LEVEL=warning`
+7. Criar localmente um **`.env.production`** (ignorado pelo git) igual ao do
+   servidor, mas com `DB_HOST` apontando para o host do MySQL remoto.
+8. Depois do primeiro deploy: `php artisan migrate --env=production --force` e
+   `php artisan make:filament-user --env=production`.
+
+### A cada deploy
+
+1. Com tudo commitado: `scripts/release.sh`. Gera
+   `release/the-forest-meadow-<data>-<commit>.zip` com as dependências de produção,
+   os assets compilados e os do painel.
+2. Se houver migrations novas: `php artisan migrate --env=production --force`.
+3. Enviar o `.zip` para `the-forest-meadow/` pelo gerenciador de arquivos,
+   extrair por cima (sobrescrevendo) e apagar o `.zip` do servidor.
+
+O pacote nunca contém `.env` nem `public/uploads`, então extrair por cima preserva
+a configuração e as imagens. Para voltar atrás, extraia o pacote anterior (fica em
+`release/`). Arquivos antigos em `public/build/assets` sobram a cada deploy e podem
+ser apagados de vez em quando.
+
+Vale ativar os backups do cPanel para o banco e para `public/uploads`.
+
 ## Status
 
 Fundação técnica, modelo de conteúdo, site público e SEO concluídos: projetos e
 anotações são escritos no painel e publicados no site nos dois idiomas, com RSS,
-sitemap e prévias de compartilhamento. Próximo passo: deploy via FTP.
+sitemap e prévias de compartilhamento. Pacote de deploy pronto; falta a primeira
+publicação na hospedagem.

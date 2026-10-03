@@ -61,6 +61,15 @@ de verdade do projeto. Este arquivo trata só de como trabalhar no código.
   (filas com worker, cron, `artisan` remoto) sem uma alternativa definida.
 - Uploads sempre no disco `uploads` (`public/uploads`), nunca `storage:link`.
   O deploy por FTP não pode sobrescrever essa pasta.
+- O pacote de deploy é gerado por `scripts/release.sh` a partir do commit atual
+  (`git archive`): arquivo que o app precisa em produção tem que estar versionado ou
+  ser gerado pelo script. Sem `config:cache`/`route:cache`/`view:cache` no pacote:
+  eles gravam caminhos absolutos da máquina que os gera.
+- Factories e o Faker são só de desenvolvimento (`--no-dev` no pacote): nunca usar
+  em código que roda em produção.
+- Migrations rodam da máquina local contra o banco de produção
+  (`php artisan migrate --env=production`, MySQL remoto). O `.env.production` é do
+  usuário: nunca ler nem editar, como o `.env`.
 - Nunca ler nem editar `.env`. Novas variáveis vão para o `.env.example`, e o
   usuário ajusta o `.env`.
 - Sem commit ou push sem pedido explícito.
