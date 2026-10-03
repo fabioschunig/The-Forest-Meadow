@@ -88,6 +88,7 @@ return [
     'faker_locale' => env('APP_FAKER_LOCALE', 'pt_BR'),
 
     // Locales served by the public site: URL prefix => internal locale.
+    // The first one is the default: content is written in it first.
     // The prefix stays short (/pt) while pt_BR picks up Filament, Carbon and
     // validation translations, which don't ship a bare "pt".
     'locales' => [

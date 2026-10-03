@@ -1,5 +1,5 @@
 @php($untranslated = ! $project->hasTranslation('title', app()->getLocale()))
-<x-layouts.site :title="$project->title" :description="$project->summary">
+<x-layouts.site :title="$project->title" :description="$project->summary" :model="$project" :image="upload_url($project->cover_image)">
     <article class="flow" @if ($untranslated) lang="pt-BR" @endif>
         <header class="article-head">
             <x-project-plaques :project="$project" />

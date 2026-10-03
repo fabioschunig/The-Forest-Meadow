@@ -22,9 +22,16 @@ de verdade do projeto. Este arquivo trata só de como trabalhar no código.
   (`pt.projects.show`). Mudar um segmento quebra links já publicados.
 - Nunca escrever URL fixa nas views: usar `localized_route()` e, para o seletor de
   idioma, `switch_locale_url()` (`app/helpers.php`).
+- Idioma padrão: `default_locale()` / `default_locale_prefix()`. Nunca
+  `config('app.locale')` em código que roda numa requisição: o `App::setLocale()`
+  reescreve esse valor em toda página `/en`.
+- Rotas fixas de uma seção (ex.: `.../feed`) vêm antes de `.../{slug}` no grupo.
 
 ### Conteúdo público
 - Consultas do site sempre com o escopo `published()`; rascunho e agendado dão 404.
+- Página de projeto ou anotação passa ao layout `:model`, `:image` (capa) e, se for
+  o caso, `type="article"` e `:published-at`. O `<x-seo>` usa isso para canonical,
+  hreflang e Open Graph, e só anuncia os idiomas em que o conteúdo existe.
 - Datas pelo componente `<x-date>` (converte de UTC para `app.display_timezone`).
 - Arquivos do disco `uploads` pelo helper `upload_url()`.
 - Novo tipo de bloco: bloco no `App\Filament\Forms\ContentBuilder` + componente

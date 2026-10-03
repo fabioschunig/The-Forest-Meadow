@@ -24,6 +24,11 @@ O site é bilíngue, com os endereços traduzidos:
 | Projetos | `/pt/projetos/{slug}` | `/en/projects/{slug}` |
 | Anotações | `/pt/anotacoes/{slug}` | `/en/notes/{slug}` |
 | Sobre | `/pt/sobre` | `/en/about` |
+| RSS das anotações | `/pt/anotacoes/feed` | `/en/notes/feed` |
+
+O feed em inglês traz só as anotações traduzidas. O mapa do site fica em
+`/sitemap.xml`, e cada página informa aos buscadores e às redes suas versões nos
+dois idiomas.
 
 A raiz (`/`) leva ao idioma do navegador. Conteúdo sem versão em inglês aparece em
 português no `/en`, com um aviso.
@@ -47,7 +52,9 @@ está iluminado. Referências: uma foto de clareira com raios de sol e o Sacred 
 Meadow de *Zelda: Ocarina of Time* (só como atmosfera).
 
 As árvores, o pedestal e as ruínas da abertura ainda são formas feitas em código,
-que serão substituídas por desenhos próprios.
+que serão substituídas por desenhos próprios. A imagem usada ao compartilhar links
+(`public/images/og-default.jpg`, 1200×630) é um quadro dessa cena e deve ser
+trocada junto.
 
 ## Stack
 
@@ -110,6 +117,6 @@ Os testes usam SQLite em memória e não dependem do container do banco.
 
 ## Status
 
-Fundação técnica, modelo de conteúdo e site público concluídos: projetos e anotações
-são escritos no painel e publicados no site, com a identidade visual aplicada, nos
-dois idiomas. Próximos passos: SEO, RSS, sitemap e contato; depois o deploy via FTP.
+Fundação técnica, modelo de conteúdo, site público e SEO concluídos: projetos e
+anotações são escritos no painel e publicados no site nos dois idiomas, com RSS,
+sitemap e prévias de compartilhamento. Próximo passo: deploy via FTP.

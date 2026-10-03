@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -41,8 +42,11 @@ if (! function_exists('switch_locale_url')) {
 
         $baseName = substr($name, strlen(locale_prefix()) + 1);
 
+        // Only URL parameters: Route::view() also carries "view" and "status" as parameters.
+        $parameters = array_intersect_key($route->parameters(), array_flip($route->parameterNames()));
+
         return Route::has("{$prefix}.{$baseName}")
-            ? localized_route($baseName, $route->parameters(), $prefix)
+            ? localized_route($baseName, $parameters, $prefix)
             : localized_route('home', prefix: $prefix);
     }
 }
@@ -54,5 +58,51 @@ if (! function_exists('upload_url')) {
     function upload_url(?string $path): ?string
     {
         return filled($path) ? Storage::disk('uploads')->url($path) : null;
+    }
+}
+
+if (! function_exists('default_locale_prefix')) {
+    /**
+     * URL prefix of the default locale: the first entry of config('app.locales').
+     * Not config('app.locale'), which App::setLocale() rewrites on every /en request.
+     */
+    function default_locale_prefix(): string
+    {
+        return array_key_first(config('app.locales'));
+    }
+}
+
+if (! function_exists('default_locale')) {
+    /**
+     * The locale content is written in first (pt_BR).
+     */
+    function default_locale(): string
+    {
+        return config('app.locales')[default_locale_prefix()];
+    }
+}
+
+if (! function_exists('page_alternates')) {
+    /**
+     * URLs of the current page in each locale where it exists: every locale for
+     * fixed pages, only translated locales for a project or note.
+     *
+     * @return array<string, string> URL prefix => URL
+     */
+    function page_alternates(?Model $model = null): array
+    {
+        $alternates = [];
+
+        foreach (config('app.locales') as $prefix => $locale) {
+            $available = $model === null
+                || $prefix === default_locale_prefix()
+                || $model->hasTranslation('title', $locale);
+
+            if ($available) {
+                $alternates[$prefix] = switch_locale_url($prefix);
+            }
+        }
+
+        return $alternates;
     }
 }

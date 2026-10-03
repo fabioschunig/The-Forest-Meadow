@@ -67,6 +67,9 @@ return [
         'email' => 'E-mail',
     ],
 
+    // Open Graph locale for link previews.
+    'og_locale' => 'pt_BR',
+
     'date_format' => 'j \\d\\e F \\d\\e Y',
 
     'errors' => [

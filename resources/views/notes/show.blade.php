@@ -2,7 +2,7 @@
     $untranslated = ! $note->hasTranslation('title', app()->getLocale());
     $project = $note->project?->isPublished() ? $note->project : null;
 @endphp
-<x-layouts.site :title="$note->title" :description="$note->excerpt">
+<x-layouts.site :title="$note->title" :description="$note->excerpt" :model="$note" :image="upload_url($note->cover_image)" type="article" :published-at="$note->published_at">
     <article class="flow" @if ($untranslated) lang="pt-BR" @endif>
         <header class="article-head">
             <div class="when meta">

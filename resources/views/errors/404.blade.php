@@ -1,4 +1,4 @@
-<x-layouts.site :title="__('site.errors.404_title')">
+<x-layouts.site :title="__('site.errors.404_title')" noindex>
     <div class="page error-page">
         <p class="eyebrow">404</p>
         <h1>{{ __('site.errors.404_title') }}</h1>
